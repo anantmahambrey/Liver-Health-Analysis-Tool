@@ -39,3 +39,5 @@ View the categorized outputs displayed on the screen.
 The model is trained on the ILPD liver disease dataset, using various features from liver function tests to predict the liver health status.
 The dataset is preprocessed using python libraries Numpy and Pandas, followed by training the model.
 The ANN architecture is designed to achieve high accuracy in classification tasks, providing reliable results.
+
+![Liver Health Analysis Tool Screenshot](images/pic1.png)

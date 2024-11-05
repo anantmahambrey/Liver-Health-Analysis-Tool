@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LivCheck</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="right">
+        <img src="{{ url_for('static', filename='liverpicture.png') }}" class="img">
+        </div>
+        <div class="left">
+        <p class="title">LivCheck</p>
+        <p class="motto">Liver Health Analyzer</p>
+        </div>
+    </div>
+    <h2 class="heading"><u>Please enter your details</u>
+        <span tabindex="0" class="info-icon" title="Click for info" onclick="givealert()">ℹ️</span>
+    </h2>
+    <div class="form-container">
+        <form action="/predict" method="post" >
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feature1">Age</label>
+                    <input type="number" step="any" name="feature1" id="feature1" value="{{ data.get('feature1', '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="feature2">Gender (0 for Male | 1 for Female)</label>
+                    <input type="number" step="any" name="feature2" id="feature2" min="0" max="1" oninput="validateGenderInput(this)" value="{{ data.get('feature2', '') }}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feature3">Total Bilirubin (TB)</label>
+                    <input type="number" step="any" name="feature3" id="feature3" value="{{ data.get('feature3', '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="feature4">Direct Bilirubin (DB)</label>
+                    <input type="number" step="any" name="feature4" id="feature4" value="{{ data.get('feature4', '') }}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feature5">Alkaline Phosphotase (Alkphos)</label>
+                    <input type="number" step="any" name="feature5" id="feature5" value="{{ data.get('feature5', '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="feature6">Sgpt (ALT)</label>
+                    <input type="number" step="any" name="feature6" id="feature6" value="{{ data.get('feature6', '') }}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feature7">Sgot (AST)</label>
+                    <input type="number" step="any" name="feature7" id="feature7" value="{{ data.get('feature7', '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="feature8">Total Proteins (TP)</label>
+                    <input type="number" step="any" name="feature8" id="feature8" value="{{ data.get('feature8', '') }}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feature9">Albumin (ALB)</label>
+                    <input type="number" step="any" name="feature9" id="feature9" value="{{ data.get('feature9', '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="feature10">Albumin/Globulin Ratio (A/G Ratio)</label>
+                    <input type="number" step="any" name="feature10" id="feature10" value="{{ data.get('feature10', '') }}" required>
+                </div>
+            </div>
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+    {% if prediction_text %}
+    <div class="result-container">
+        <div class="temp">
+        <strong class="text1"><u>Analysis Result</u></strong>
+        <span tabindex="0" class="info-icon" title="Click for info" onclick="givealert1()">ℹ️</span><br>
+        <p class="posneg"><strong>{{ prediction_text }}</strong></p>
+        </div>
+        <br>
+        <p class="text">
+        According to <strong>LivCheck</strong>, based on your LFT results, you have a <strong>{{ statement }}</strong> chance of having a Liver Disease.
+        </p>
+        <br>
+        <p class="text2">
+            Check the below chart to analyze your liver health :
+         </p>
+        <img src="{{ url_for('static', filename='liver_chart.jpg') }}" class="chart">
+        <p class="text3">
+            Visit <a href="https://www.happiesthealth.com/articles/liver-and-pancreas/the-liver-files-decoding-the-basic-liver-function-tests" target="_blank"><u><strong>Decoding the basic Liver Function tests</strong></u></a> for more information.
+         </p>
+    </div>
+    {% endif %}
+    <footer style="text-align: center; padding: 20px;">
+        <p class="credit">© 2024 LivCheck. Developed by <a href="https://github.com/anantmahambrey" target="_blank">Anant Mahambrey</a>. Images by <a href="https://www.happiesthealth.com/articles/liver-and-pancreas/the-liver-files-decoding-the-basic-liver-function-tests" target="_blank">Happiest Health</a>.</p>
+    </footer>
+    <script src="static/script.js"></script>
+</body>
+</html>
